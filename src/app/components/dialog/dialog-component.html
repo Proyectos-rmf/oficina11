@@ -1,0 +1,18 @@
+<div *ngIf="data.carga">
+  <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+  <p> </p>
+  <span>{{data.info}}</span>
+</div>
+
+<div *ngIf="!data.carga">
+  <h1 *ngIf="!data.icono" mat-dialog-title>{{data.info}}</h1>
+  <div mat-dialog-content>
+    <div *ngIf="data.icono" style="text-align: center">
+      <button mat-fab style="background-color: {{data.color}}">
+        <mat-icon>{{data.icono}}</mat-icon>
+      </button>
+      <p> </p>
+      <p><b>{{data.info}}</b></p>
+    </div>
+  </div>
+</div>

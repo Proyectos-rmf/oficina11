@@ -1,0 +1,60 @@
+<mat-horizontal-stepper labelPosition="bottom" #stepper>
+  <mat-step>
+    <ng-template matStepLabel>Archivo con formato</ng-template>
+
+      <div fxLayout="row" fxLayoutAlign="center">
+        <mat-form-field style="width:599px !important">
+          <p class="file-name" *ngIf="!file; else fileName">Seleccione EMPRESA, archivo extensión XLS</p>
+
+          <input matInput disabled placeholder="Si tiene archivo con formato (Leyout), Presione el icono">
+          <input type="file" (change)="onFileChange($event)" style="display: none" #fileInput accept="*/*" (change)="onChangeFileInput()" #archivo/>
+
+          <button matSuffix mat-mini-fab class="file-select-button" (click)="onClickFileInputButton()">
+            <mat-icon>attach_file</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="column" fxLayoutAlign="end start">
+        <button mat-button matStepperNext>Próximo</button>
+      </div>
+
+      <ng-template #llena>
+        <app-llenar [archivo]="arEmpresa"></app-llenar>
+      </ng-template>
+
+      <ng-template #fileName>
+        <p class="file-name">{{ file?.name }}</p>
+      </ng-template>
+
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Llenar formato</ng-template>
+      <button mat-button color="accent" (click)="llenado()" *ngIf="!llenar; else llena">
+        Presione click si desea llenar los campos o no cuenta con archivo con formato
+      </button>
+      <!-- <app-llenar [archivo]="arEmpresa"></app-llenar> -->
+      <div>
+        <br><br>
+        <button mat-button matStepperPrevious>Anterior</button>
+        <button mat-button matStepperNext>Próximo</button>
+      </div>
+
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Terminado</ng-template>
+    <p>Has registrado a la Empresa</p>
+    <div>
+      <button mat-button matStepperPrevious>Anterior</button>
+      <button mat-button (click)="stepper.reset()">Reiniciar</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+
+
+<!-- <div class="custom-file">
+  <input type="file" (change)="onFileChange($event)" class="custom-file-input" id="inputGroupFile">
+  <label class="custom-file-label" for="inputGroupFile" aria-describedby="inputGroupFileAddon" data-browse="Seleccione ....">Elija Empresa o Insitutción, extension XLSX</label>
+</div> -->

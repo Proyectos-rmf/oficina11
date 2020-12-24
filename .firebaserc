@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "ofpempresas": {
+      "hosting": {
+        "ofp11": [
+          "ofpempresas"
+        ]
+      }
+    }
+  }
+}

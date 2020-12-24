@@ -1,0 +1,47 @@
+<!-- <div fxLayout='column' class="zero">
+  <p>Empieza</p>
+  <div fxFlex="33" class="one" >Uno</div>
+  <div fxFlex="33%" class="two">
+    DOS
+    <div fxFlex="22%"    class="two_one">Uno</div>
+    <div fxFlex="205px"  class="two_two">Dos</div>
+    <div fxFlex="30"     class="two_three">Tres</div>
+
+  </div>
+  <div fxFlex class="three">Tres</div>
+
+</div> -->
+<!-- class="sidenav" -->
+
+<mat-sidenav-container class="sidenav-container">
+
+  <mat-sidenav #drawer fixedInViewport class="sidenav"
+      [attr.role]="(devicexs) ? 'dialog' : 'navigation'"
+      [mode]="(devicexs) ? 'over' : 'side'"
+      [opened]="(devicexs) === false">
+
+    <mat-toolbar>
+      <span class="title-center">Menu</span>
+    </mat-toolbar>
+
+    <mat-nav-list>
+      <a *ngFor="let item of menuItems; let i = index" mat-list-item [routerLink]="'/'+menuItems[i].opcion"
+         [hidden]=menuItems[i].activo (click)="opcionElejida=menuItems[i].opcion;" aria-disabled="true">
+        {{menuItems[i].opcion | titlecase}}</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar>
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="devicexs">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>{{opcionElejida}}</span>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
