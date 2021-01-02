@@ -49,3 +49,24 @@ export class EmpresaComponent implements OnInit {
   }
 
 }
+
+
+// notRequiredHasValue(field: string): string {
+//   return this.contactForm.get(field).value ? 'is-valid' : '';
+// }
+
+
+// isValidField(field: string): string {
+//   const validatedField = this.contactForm.get(field);
+//   return (!validatedField.valid && validatedField.touched)
+//     ? 'is-invalid' : validatedField.touched ? 'is-valid' : '';
+// }
+
+// private initForm(): void {
+//   this.contactForm = this.fb.group({
+//     name: ['', [Validators.required]],
+//     lastName: [''],
+//     email: ['', [Validators.required, Validators.pattern(this.isEmail)]],
+//     message: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]],
+//   });
+// }

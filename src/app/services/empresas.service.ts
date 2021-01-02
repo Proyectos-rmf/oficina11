@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+// import { Observable } from "rxjs";
+// import { Empresa } from '../models/empresa';
 
 @Injectable({
   providedIn: 'root'
@@ -7,20 +9,72 @@ import { AngularFirestore } from '@angular/fire/firestore';
 
 export class CrudService {
 
-  private empresaColeccion: any;
-  private tablas: any;
+  // contacts: Observable<Empresa>;
+  // private empresaColeccion: AngularFirestoreCollection<Empresa>;
 
-  constructor(private db: AngularFirestore) { }
+  constructor(private readonly db: AngularFirestore) {
+    // this.empresaColeccion = db.collection<Empresa>('empresas');
+  }
+
+
+  // Crear Colección
+  async onSaveFormas(Formas: any, coleccion: string): Promise<void> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const id = this.db.createId();
+        const data = { id, ...Formas };
+        const result = this.db.collection<any>(coleccion).doc(id).set(data);
+        resolve(result);
+      } catch (error) {
+        reject(error.message);
+      }
+    });
+  }
+
+  // Obtener todas las colecciones
+  TodasEmpresas(coleccion: string) {
+    return this.db.collection(coleccion).snapshotChanges();
+
+    // return this.db.collection(coleccion).get();
+  }
+
+  // async onGetFormas(Formas: any, coleccion: string): Promise<void> {
+  //   return new Promise(async (resolve, reject) => {
+  //     try {
+  //       const id = this.db.createId();
+  //       const data = { id, ...Formas };
+  //       const result = this.db
+  //                          .collection<any>(coleccion)
+  //                          .get()
+  //                          .then(doc => {
+  //                             doc.data();
+  //                           });
+  //       resolve(result);
+  //     } catch (error) {
+  //       reject(error.message);
+  //     }
+  //   });
+  // }
+
+  // cityRef = this.db.collection('cities').doc('SF').get()
+  // // getDoc = cityRef.get()
+  // .then(doc => {
+  //   if (!doc.exists) {
+  //     console.log('No such document!');
+  //   } else {
+  //     console.log('Document data:', doc.data());
+  //   }
+  // })
+  // .catch(err => {
+  //   console.log('Error getting document', err);
+  // });
+
 
   // Crear Empresa
   creaEmpresa(empresa: any, coleccion: string){
     return this.db.collection(coleccion).add(empresa);
   }
 
-  // Obtener todas las empresas
-  TodasEmpresas(coleccion: string) {
-    return this.db.collection(coleccion).snapshotChanges();
-  }
 
  getBuscar(coleccion, buscar) {
    var empresaref = this.db.collection(coleccion, ref => ref.where('nombre_Emp', '==', buscar));

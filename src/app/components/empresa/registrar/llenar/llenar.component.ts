@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 
 import { UtilService } from 'src/app/services/util.service';
 import { CrudService } from 'src/app/services/empresas.service';
@@ -18,7 +17,7 @@ export class LlenarComponent implements OnInit {
   public datos: any[][];
   public XLSarr$ = this.XLSX.XLSAction$;
 
-  constructor(public XLSX: XlsService, public UTIL: UtilService, private router: Router,
+  constructor(public XLSX: XlsService, public UTIL: UtilService,
               public formBuilder: FormBuilder, public crudApi: CrudService) {}
 
   ngOnInit(): void {
@@ -38,10 +37,15 @@ export class LlenarComponent implements OnInit {
 
   onSubmit(): void {
     if (navigator.onLine) {
-      this.nuevaEmpresa();
+      this.onSaveEmpresas();
     } else {
       this.UTIL.openDialog('red', 'clear', 'No tienes acceso a INTERNET, espere un momento ...', 3000);
      }
+  }
+
+  onSaveEmpresas() {
+    this.UTIL.Variables(this.empresaForm.value);
+    this.UTIL.onSaveFormas('empresas', 'Empresa creada');
   }
 
   ponerdatos(informa: any[][]): void {
@@ -54,8 +58,6 @@ export class LlenarComponent implements OnInit {
       cp_Emp: (informa ? informa[1][3] : ''),
       telefono_Emp: (informa ? informa[1][6] : '')
     };
-
-    // console.log(empresas);
 
     this.empresaForm.setValue(empresas);
     // console.log('Empresa', this.empresaForm.controls.nombre_Emp.value);
@@ -74,36 +76,4 @@ export class LlenarComponent implements OnInit {
     });
   }
 
-  // listaEmpresas(coleccion: string): void {
-  //   this.crudApi.TodasEmpresas(coleccion).subscribe(data => {
-  //     this.Empresamodal = data.map(e => {
-  //       return {
-  //         id: e.payload.doc.id,
-  //         elegir: false,
-  //         ...e.payload.doc.data() as Empresa
-  //       };
-  //     });
-
-  //     if (this.Empresamodal[0]?.id) {
-  //       this.noactivo = false;
-  //       this.UTIL.Variables(this.Empresamodal);
-  //     } else {
-  //       this.noactivo = true;
-  //       console.log('Sin EMPRESAS');
-  //       }
-  //   });
-  // }
-
-  nuevaEmpresa(): void {
-    const cargando = this.UTIL.start();
-    this.crudApi.creaEmpresa(this.empresaForm.value, 'empresas')
-    .then((res) => {
-      this.UTIL.stop(cargando);
-      this.UTIL.openDialog('green', 'done', 'Empresa creada', 2000);
-      this.router.navigate(['']);
-    }, (err) => {
-      this.UTIL.stop(cargando);
-      this.UTIL.openDialog('red', 'clear', 'NO se puede crear EMPRESA, acceso denegado', 3000);
-    });
-  }
 }
