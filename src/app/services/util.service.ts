@@ -77,7 +77,7 @@ export class UtilService {
       await this.crudApi.onSaveFormas(formValue, coleccion);
       this.stop(cargando);
       this.openDialog('green', 'done', mensaje, 2000);
-      this.router.navigate(['']);
+      // this.router.navigate(['']);
     } catch (e) {
       alert(e);
     }

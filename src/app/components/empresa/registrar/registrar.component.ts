@@ -16,7 +16,7 @@ export class RegistrarComponent {
   constructor() { }
 
   llenado(): void {
-    this.llenar = true;
+    this.llenar = !this.llenar;
   }
 
   onClickFileInputButton(): void {

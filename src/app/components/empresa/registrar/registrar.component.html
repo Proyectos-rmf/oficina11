@@ -16,28 +16,27 @@
       </div>
 
       <div fxLayout="column" fxLayoutAlign="end start">
-        <button mat-button matStepperNext>Próximo</button>
+        <button mat-button (click)="llenado()" matStepperNext>Próximo</button>
       </div>
-
-      <ng-template #llena>
-        <app-llenar [archivo]="arEmpresa"></app-llenar>
-      </ng-template>
-
-      <ng-template #fileName>
-        <p class="file-name">{{ file?.name }}</p>
-      </ng-template>
-
   </mat-step>
+
+  <ng-template #llena>
+    <app-llenar [archivo]="arEmpresa"></app-llenar>
+  </ng-template>
+
+  <ng-template #fileName>
+    <p class="file-name">{{ file?.name }}</p>
+  </ng-template>
 
   <mat-step>
     <ng-template matStepLabel>Llenar formato</ng-template>
-      <button mat-button color="accent" (click)="llenado()" *ngIf="!llenar; else llena">
-        Presione click si desea llenar los campos o no cuenta con archivo con formato
-      </button>
-      <!-- <app-llenar [archivo]="arEmpresa"></app-llenar> -->
+      <div *ngIf="llenar">
+        <app-llenar [archivo]="arEmpresa"></app-llenar>
+      </div>
+
       <div>
         <br><br>
-        <button mat-button matStepperPrevious>Anterior</button>
+        <button mat-button (click)="llenado()" matStepperPrevious>Anterior</button>
         <button mat-button matStepperNext>Próximo</button>
       </div>
 
@@ -48,7 +47,7 @@
     <p>Has registrado a la Empresa</p>
     <div>
       <button mat-button matStepperPrevious>Anterior</button>
-      <button mat-button (click)="stepper.reset()">Reiniciar</button>
+      <button mat-button (click)="llenado()" (click)="stepper.reset()">Reiniciar</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>
