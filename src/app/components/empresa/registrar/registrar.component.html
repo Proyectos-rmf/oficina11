@@ -37,18 +37,8 @@
       <div>
         <br><br>
         <button mat-button (click)="llenado()" matStepperPrevious>Anterior</button>
-        <button mat-button matStepperNext>Próximo</button>
       </div>
 
-  </mat-step>
-
-  <mat-step>
-    <ng-template matStepLabel>Terminado</ng-template>
-    <p>Has registrado a la Empresa</p>
-    <div>
-      <button mat-button matStepperPrevious>Anterior</button>
-      <button mat-button (click)="llenado()" (click)="stepper.reset()">Reiniciar</button>
-    </div>
   </mat-step>
 </mat-horizontal-stepper>
 

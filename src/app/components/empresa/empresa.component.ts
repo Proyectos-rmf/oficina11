@@ -16,6 +16,7 @@ export class EmpresaComponent implements OnInit {
   noactivo = false;
 
   constructor(private crudApi: CrudService, private router: Router, private UTIL: UtilService) { }
+  indice = 0;
 
   ngOnInit(): void {
     this.listaEmpresas('empresas');
@@ -36,6 +37,7 @@ export class EmpresaComponent implements OnInit {
       if (this.Empresamodal[0]?.id) {
         this.noactivo = false;
         this.UTIL.Variables(this.Empresamodal);
+        this.indice = 1
       } else {
           this.noactivo = true;
         }
