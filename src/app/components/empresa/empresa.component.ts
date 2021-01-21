@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 
 import { UtilService } from '../../services/util.service';
-import { CrudService } from '../../services/empresas.service';
+import { EmpresaService } from './empresas.service';
 import { Empresa } from '../../models/empresa';
 
 @Component({
@@ -12,20 +12,69 @@ import { Empresa } from '../../models/empresa';
   ]
 })
 export class EmpresaComponent implements OnInit {
-  Empresamodal: Empresa[];
+  empresas$ = this.empresaSvc.empresas;
+
+  navigationExtras: NavigationExtras = {
+    state: {
+      value: null
+    }
+  };
+
+  public Empresamodal: Empresa[];
   noactivo = false;
 
-  constructor(private crudApi: CrudService, private router: Router, private UTIL: UtilService) { }
-  indice = 0;
+  constructor(private empresaSvc: EmpresaService, private router: Router, private UTIL: UtilService) { }
+  indice = 1;
 
   ngOnInit(): void {
-    this.listaEmpresas('empresas');
+    this.getEmpresa();
+    // this.listaEmpresas('empresas');
   }
 
-  listaEmpresas(coleccion: string): void {
+  getEmpresa(): void {
+    this.empresas$.subscribe(res => { this.Empresamodal = res; });
+    console.log(this.Empresamodal);
+
+    this.navigationExtras.state.value = this.empresas$;
+    const espera = this.UTIL.start();
+    if (this.empresas$.nombre_Emp) {
+      console.log('Existen');
+    } else {
+      console.log('No existen');
+    }
+    this.UTIL.stop(espera);
+
+    // this.empresaSvc.TodasEmpresas(coleccion).subscribe(data => {
+    //   this.Empresamodal = data.map(e => {
+    //     return {
+    //       id: e.payload.doc.id,
+    //       elegir: false,
+    //       ...e.payload.doc.data() as Empresa
+    //     };
+    //   });
+
+    //   if (this.Empresamodal[0]?.id) {
+    //     this.noactivo = false;
+    //     this.UTIL.Variables(this.Empresamodal);
+    //     this.indice = 1
+    //   } else {
+    //       this.noactivo = true;
+    //       this.indice = 0
+    //     }
+
+    //   this.UTIL.stop(espera);
+    // }, (error) => {
+    //     this.UTIL.stop(espera);
+    //     this.UTIL.openDialog('red', 'clear', 'La Base de datos no esta Disponible', 3000);
+    //     this.router.navigate(['']);
+    // });
+  }
+
+
+listaEmpresas(coleccion: string): void {
     const espera = this.UTIL.start();
 
-    this.crudApi.TodasEmpresas(coleccion).subscribe(data => {
+    this.empresaSvc.TodasEmpresas(coleccion).subscribe(data => {
       this.Empresamodal = data.map(e => {
         return {
           id: e.payload.doc.id,
@@ -40,6 +89,7 @@ export class EmpresaComponent implements OnInit {
         this.indice = 1
       } else {
           this.noactivo = true;
+          this.indice = 0
         }
 
       this.UTIL.stop(espera);
@@ -51,24 +101,3 @@ export class EmpresaComponent implements OnInit {
   }
 
 }
-
-
-// notRequiredHasValue(field: string): string {
-//   return this.contactForm.get(field).value ? 'is-valid' : '';
-// }
-
-
-// isValidField(field: string): string {
-//   const validatedField = this.contactForm.get(field);
-//   return (!validatedField.valid && validatedField.touched)
-//     ? 'is-invalid' : validatedField.touched ? 'is-valid' : '';
-// }
-
-// private initForm(): void {
-//   this.contactForm = this.fb.group({
-//     name: ['', [Validators.required]],
-//     lastName: [''],
-//     email: ['', [Validators.required, Validators.pattern(this.isEmail)]],
-//     message: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]],
-//   });
-// }

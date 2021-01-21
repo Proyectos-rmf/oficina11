@@ -2,8 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { UtilService } from 'src/app/services/util.service';
-import { CrudService } from 'src/app/services/empresas.service';
+import { EmpresaService } from 'src/app/components/empresa/empresas.service';
 import { XlsService } from 'src/app/services/xls.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-llenar',
@@ -18,7 +19,8 @@ export class LlenarComponent implements OnInit {
   public XLSarr$ = this.XLSX.XLSAction$;
 
   constructor(public XLSX: XlsService, public UTIL: UtilService,
-              public formBuilder: FormBuilder, public crudApi: CrudService) {}
+              public formBuilder: FormBuilder, public crudApi: EmpresaService,
+              private router: Router) {}
 
   ngOnInit(): void {
     if (this.archivo) { this.onFileChange(this.archivo); }
@@ -45,7 +47,8 @@ export class LlenarComponent implements OnInit {
 
   onSaveEmpresas() {
     this.UTIL.Variables(this.empresaForm.value);
-    this.UTIL.onSaveFormas('empresas', 'Empresa creada');
+    this.empresaForm.reset();
+    this.UTIL.onSaveFormas('empresas', 'Empresa creada','empresa');
   }
 
   ponerdatos(informa: any[][]): void {

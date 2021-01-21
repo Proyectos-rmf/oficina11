@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { BehaviorSubject } from 'rxjs';
 import { DialogComponent } from '../components/dialog/dialog-component';
-import { CrudService } from 'src/app/services/empresas.service';
+import { EmpresaService } from 'src/app/components/empresa/empresas.service';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class UtilService {
   private apuntador = new BehaviorSubject<any>(null);
   ApuntadorAction$ = this.apuntador.asObservable();
 
-  constructor(private dialogo: MatDialog, private crudApi: CrudService, private router: Router) { }
+  constructor(private dialogo: MatDialog, private crudApi: EmpresaService, private router: Router) { }
 
   Variables(value: any): void {
     this.apuntador.next(value);
@@ -70,16 +70,16 @@ export class UtilService {
   // CRUD con FireBase
 
   // Crear Colección
-  async onSaveFormas(coleccion: string, mensaje: string): Promise<void> {
+  async onSaveFormas(coleccion: string, mensaje: string, pagina: string): Promise<void> {
     const cargando = this.start();
     try {
       const formValue = this.apuntador.value;
       await this.crudApi.onSaveFormas(formValue, coleccion);
       this.stop(cargando);
       this.openDialog('green', 'done', mensaje, 2000);
-      // this.router.navigate(['']);
-    } catch (e) {
-      alert(e);
+      this.router.navigate([pagina]);
+    } catch (error: any) {
+      alert(error.code);
     }
   }
 

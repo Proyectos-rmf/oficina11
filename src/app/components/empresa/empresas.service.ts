@@ -1,19 +1,28 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-// import { Observable } from "rxjs";
-// import { Empresa } from '../models/empresa';
+import { Observable } from "rxjs";
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
+
+import { Empresa } from 'src/app/models/empresa';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class CrudService {
+export class EmpresaService {
+  empresas: Observable<Empresa[]>;
+  private empresasCollection: AngularFirestoreCollection<Empresa>;
 
-  // contacts: Observable<Empresa>;
-  // private empresaColeccion: AngularFirestoreCollection<Empresa>;
 
-  constructor(private readonly db: AngularFirestore) {
-    // this.empresaColeccion = db.collection<Empresa>('empresas');
+  constructor(private readonly afs: AngularFirestore) {
+    this.empresasCollection = afs.collection<Empresa>('empresas');
+    this.getEmpresas();
+  }
+
+  private getEmpresas(): void {
+    this.empresas = this.empresasCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => a.payload.doc.data() as Empresa))
+    );
   }
 
 
@@ -21,9 +30,9 @@ export class CrudService {
   async onSaveFormas(Formas: any, coleccion: string): Promise<void> {
     return new Promise(async (resolve, reject) => {
       try {
-        const id = this.db.createId();
+        const id = this.afs.createId();
         const data = { id, ...Formas };
-        const result = this.db.collection<any>(coleccion).doc(id).set(data);
+        const result = this.afs.collection<any>(coleccion).doc(id).set(data);
         resolve(result);
       } catch (error) {
         reject(error.message);
@@ -33,17 +42,17 @@ export class CrudService {
 
   // Obtener todas las colecciones
   TodasEmpresas(coleccion: string) {
-    return this.db.collection(coleccion).snapshotChanges();
+    return this.afs.collection(coleccion).snapshotChanges();
 
-    // return this.db.collection(coleccion).get();
+    // return this.afs.collection(coleccion).get();
   }
 
   // async onGetFormas(Formas: any, coleccion: string): Promise<void> {
   //   return new Promise(async (resolve, reject) => {
   //     try {
-  //       const id = this.db.createId();
+  //       const id = this.afs.createId();
   //       const data = { id, ...Formas };
-  //       const result = this.db
+  //       const result = this.afs
   //                          .collection<any>(coleccion)
   //                          .get()
   //                          .then(doc => {
@@ -56,7 +65,7 @@ export class CrudService {
   //   });
   // }
 
-  // cityRef = this.db.collection('cities').doc('SF').get()
+  // cityRef = this.afs.collection('cities').doc('SF').get()
   // // getDoc = cityRef.get()
   // .then(doc => {
   //   if (!doc.exists) {
@@ -72,15 +81,15 @@ export class CrudService {
 
   // Crear Empresa
   creaEmpresa(empresa: any, coleccion: string){
-    return this.db.collection(coleccion).add(empresa);
+    return this.afs.collection(coleccion).add(empresa);
   }
 
 
  getBuscar(coleccion, buscar) {
-   var empresaref = this.db.collection(coleccion, ref => ref.where('nombre_Emp', '==', buscar));
+   var empresaref = this.afs.collection(coleccion, ref => ref.where('nombre_Emp', '==', buscar));
   // var query = empresaref.where('nombre_Emp', buscar)
-  //     this.tablaCollection = this.db.collection(coleccion);
-//     this.tablaCollection = this.db.collection(coleccion, ref => ref.where('nombre_Emp', '==', buscar));
+  //     this.tablaCollection = this.afs.collection(coleccion);
+//     this.tablaCollection = this.afs.collection(coleccion, ref => ref.where('nombre_Emp', '==', buscar));
 //      return this.tablas = empresaref.snapshotChanges()
 //        .pipe(map(changes => {
 //         return changes.map(action => {
@@ -92,7 +101,7 @@ export class CrudService {
  }
 
 // idEmpresas(coleccion: string) {
-//   this.empresaColeccion = this.db.collection(coleccion);
+//   this.empresaColeccion = this.afs.collection(coleccion);
 //   return this.empresaColeccion.snapshotChanges()
 //     .pipe(map(changes => {
 //       return changes.map(action => {
@@ -105,7 +114,7 @@ export class CrudService {
 
 
 //  todasEmpresas(coleccion: string) {
-//    this.empresaColeccion = this.db.collection(coleccion);
+//    this.empresaColeccion = this.afs.collection(coleccion);
 //   return this.tablas = this.empresaColeccion.snapshotChanges()
 //      .pipe(map(changes => {
 //        return changes.map(action => {
