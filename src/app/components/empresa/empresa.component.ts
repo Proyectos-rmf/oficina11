@@ -13,91 +13,32 @@ import { Empresa } from '../../models/empresa';
 })
 export class EmpresaComponent implements OnInit {
   empresas$ = this.empresaSvc.empresas;
-
-  navigationExtras: NavigationExtras = {
-    state: {
-      value: null
-    }
-  };
-
-  public Empresamodal: Empresa[];
+  item: Empresa[];
+  Empresamodal: Empresa[];
   noactivo = false;
+
+  // navigationExtras: NavigationExtras = {
+  //   state: {
+  //     value: null
+  //   }
+  // };
 
   constructor(private empresaSvc: EmpresaService, private router: Router, private UTIL: UtilService) { }
   indice = 1;
 
   ngOnInit(): void {
     this.getEmpresa();
-    // this.listaEmpresas('empresas');
   }
+
+  ponerdato(datos: Empresa[]): void { this.item = datos; console.log(this.item) }
 
   getEmpresa(): void {
-    this.empresas$.subscribe(res => { this.Empresamodal = res; });
-    console.log(this.Empresamodal);
-
-    this.navigationExtras.state.value = this.empresas$;
-    const espera = this.UTIL.start();
-    if (this.empresas$.nombre_Emp) {
-      console.log('Existen');
-    } else {
-      console.log('No existen');
-    }
-    this.UTIL.stop(espera);
-
-    // this.empresaSvc.TodasEmpresas(coleccion).subscribe(data => {
-    //   this.Empresamodal = data.map(e => {
-    //     return {
-    //       id: e.payload.doc.id,
-    //       elegir: false,
-    //       ...e.payload.doc.data() as Empresa
-    //     };
-    //   });
-
-    //   if (this.Empresamodal[0]?.id) {
-    //     this.noactivo = false;
-    //     this.UTIL.Variables(this.Empresamodal);
-    //     this.indice = 1
-    //   } else {
-    //       this.noactivo = true;
-    //       this.indice = 0
-    //     }
-
-    //   this.UTIL.stop(espera);
-    // }, (error) => {
-    //     this.UTIL.stop(espera);
-    //     this.UTIL.openDialog('red', 'clear', 'La Base de datos no esta Disponible', 3000);
-    //     this.router.navigate(['']);
-    // });
-  }
-
-
-listaEmpresas(coleccion: string): void {
-    const espera = this.UTIL.start();
-
-    this.empresaSvc.TodasEmpresas(coleccion).subscribe(data => {
-      this.Empresamodal = data.map(e => {
-        return {
-          id: e.payload.doc.id,
-          elegir: false,
-          ...e.payload.doc.data() as Empresa
-        };
-      });
-
-      if (this.Empresamodal[0]?.id) {
-        this.noactivo = false;
-        this.UTIL.Variables(this.Empresamodal);
-        this.indice = 1
-      } else {
-          this.noactivo = true;
-          this.indice = 0
-        }
-
-      this.UTIL.stop(espera);
-    }, (error) => {
+      this.empresas$.subscribe(res => { this.Empresamodal = res; this.ponerdato(this.Empresamodal) });
+      setTimeout(() => {
+        // this.navigationExtras.state.value = this.empresas$;
+        const espera = this.UTIL.start();
+        if (this.item[0]?.id) { this.indice = 1 } else { this.indice = 0; this.noactivo = true }
         this.UTIL.stop(espera);
-        this.UTIL.openDialog('red', 'clear', 'La Base de datos no esta Disponible', 3000);
-        this.router.navigate(['']);
-    });
+      }, 500);
   }
-
 }
