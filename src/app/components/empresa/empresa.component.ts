@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { UtilService } from '../../services/util.service';
 import { EmpresaService } from './empresas.service';
@@ -13,15 +13,8 @@ import { Empresa } from '../../models/empresa';
 })
 export class EmpresaComponent implements OnInit {
   empresas$ = this.empresaSvc.empresas;
-  item: Empresa[];
   Empresamodal: Empresa[];
   noactivo = false;
-
-  // navigationExtras: NavigationExtras = {
-  //   state: {
-  //     value: null
-  //   }
-  // };
 
   constructor(private empresaSvc: EmpresaService, private router: Router, private UTIL: UtilService) { }
   indice = 1;
@@ -30,15 +23,14 @@ export class EmpresaComponent implements OnInit {
     this.getEmpresa();
   }
 
-  ponerdato(datos: Empresa[]): void { this.item = datos; console.log(this.item) }
-
   getEmpresa(): void {
-      this.empresas$.subscribe(res => { this.Empresamodal = res; this.ponerdato(this.Empresamodal) });
-      setTimeout(() => {
-        // this.navigationExtras.state.value = this.empresas$;
-        const espera = this.UTIL.start();
-        if (this.item[0]?.id) { this.indice = 1 } else { this.indice = 0; this.noactivo = true }
-        this.UTIL.stop(espera);
-      }, 500);
+    const espera = this.UTIL.start();
+    this.empresas$.subscribe(res => { this.Empresamodal = res });
+    this.UTIL.stop(espera);
+
+    setTimeout(() => {
+      if (this.Empresamodal.length != 0) { this.indice = 1 } else { this.indice = 0; this.noactivo = true }
+      this.UTIL.Variables(this.Empresamodal);
+    }, 1000);
   }
 }
