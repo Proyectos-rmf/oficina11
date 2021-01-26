@@ -18,7 +18,7 @@ export class ElegirComponent implements OnInit {
     this.empresas$.subscribe(res => { this.Empresamodal = res });
 
     setTimeout(() => {
-      console.log(this.Empresamodal[0].nombre_Emp);
+      // console.log(this.Empresamodal[0].nombre_Emp);
     }, 1000);
   }
 }

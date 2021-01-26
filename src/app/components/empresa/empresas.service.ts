@@ -11,6 +11,8 @@ import { Empresa } from 'src/app/models/empresa';
 
 export class EmpresaService {
   empresas: Observable<Empresa[]>;
+  Empresamodal: Empresa[];
+
   private empresasCollection: AngularFirestoreCollection<Empresa>;
 
 
@@ -21,8 +23,11 @@ export class EmpresaService {
 
   private getEmpresas(): void {
     this.empresas = this.empresasCollection.snapshotChanges().pipe(
-      map(actions => actions.map(a => a.payload.doc.data() as Empresa))
-    );
+      map(actions => actions.map(a => a.payload.doc.data() as Empresa)));
+
+    setTimeout(() => {
+      this.empresas.subscribe(res => { this.Empresamodal = res });
+    }, 1000);
   }
 
 

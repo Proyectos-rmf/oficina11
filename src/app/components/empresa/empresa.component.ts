@@ -13,7 +13,6 @@ import { Empresa } from '../../models/empresa';
 })
 export class EmpresaComponent implements OnInit {
   empresas$ = this.empresaSvc.empresas;
-  Empresamodal: Empresa[];
   noactivo = false;
 
   constructor(private empresaSvc: EmpresaService, private router: Router, private UTIL: UtilService) { }
@@ -25,12 +24,26 @@ export class EmpresaComponent implements OnInit {
 
   getEmpresa(): void {
     const espera = this.UTIL.start();
-    this.empresas$.subscribe(res => { this.Empresamodal = res });
-    this.UTIL.stop(espera);
-
     setTimeout(() => {
-      if (this.Empresamodal.length != 0) { this.indice = 1 } else { this.indice = 0; this.noactivo = true }
-      this.UTIL.Variables(this.Empresamodal);
-    }, 1000);
+      if (typeof(this.empresaSvc.Empresamodal[0])==='undefined') {
+        this.indice = 0;
+        this.noactivo = true;
+      } else {
+        this.indice = 1;
+        this.UTIL.Variables(this.empresaSvc.Empresamodal);
+      }
+      this.UTIL.stop(espera);
+    }, 2000);
+
+    // console.log(this.empresas$.operator.project);
+
+    // const espera = this.UTIL.start();
+    // this.empresas$.subscribe(res => { this.Empresamodal = res });
+    // this.UTIL.stop(espera);
+
+    // setTimeout(() => {
+    //   if (this.Empresamodal.length != 0) { this.indice = 1 } else { this.indice = 0; this.noactivo = true }
+    //   this.UTIL.Variables(this.Empresamodal);
+    // }, 1000);
   }
 }
