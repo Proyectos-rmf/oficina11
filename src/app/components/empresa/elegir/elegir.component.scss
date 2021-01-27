@@ -1,0 +1,42 @@
+// .example-container {
+//   position: relative;
+//   min-height: 200px;
+// }
+
+// .example-table-container {
+//   position: relative;
+//   max-height: 400px;
+//   overflow: auto;
+// }
+
+// table {
+//   width: 100%;
+// }
+
+// /* Column Widths */
+// .mat-column-Nombre,
+// .mat-column-Domicilio {
+//   max-width: 64px;
+// }
+
+// .mat-column-created {
+//   max-width: 124px;
+// }
+
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
+
+.container-page{
+  padding: 15px;
+}
