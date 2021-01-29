@@ -27,6 +27,7 @@ export class ElegirComponent implements OnInit {
 
     setTimeout(() => {
       this.dataSource = new MatTableDataSource<Empresa>(this.ELEMENT_DATA);
+      this.dataSource = this.ELEMENT_DATA;
       this.dataSource.paginator = this.paginator;
 
       console.log(this.ELEMENT_DATA);
