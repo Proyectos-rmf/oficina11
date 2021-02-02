@@ -30,6 +30,19 @@ export class EmpresaService {
     }, 1000);
   }
 
+  public getAllEmpresas(): Observable<Empresa[]> {
+    return this.empresasCollection
+      .snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data() as Empresa;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
+  }
 
   // Crear Colección
   async onSaveFormas(Formas: any, coleccion: string): Promise<void> {
