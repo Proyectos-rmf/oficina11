@@ -1,13 +1,19 @@
 <div class="container-page">
-  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
-    <ng-container matColumnDef="Nombre">
+  <mat-form-field>
+    <mat-label>Filtro</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+    <ng-container matColumnDef="nombre_Emp">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
       <td mat-cell *matCellDef="let element"> {{element.nombre_Emp}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="Domicilio">
-      <th mat-header-cell *matHeaderCellDef>Calle</th>
+    <ng-container matColumnDef="calle_Emp">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Calle</th>
       <td mat-cell *matCellDef="let element"> {{element.calle_Emp}} </td>
     </ng-container>
 
