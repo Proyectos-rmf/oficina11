@@ -16,7 +16,7 @@ export class EmpresaService {
   private empresasCollection: AngularFirestoreCollection<Empresa>;
 
 
-  constructor(private readonly afs: AngularFirestore) {
+  constructor(private afs: AngularFirestore) {
     this.empresasCollection = afs.collection<Empresa>('empresas');
     this.getEmpresas();
   }
@@ -31,7 +31,8 @@ export class EmpresaService {
   }
 
   public getAllEmpresas(): Observable<Empresa[]> {
-    return this.empresasCollection
+    return this.afs
+      .collection('empresas')
       .snapshotChanges()
       .pipe(
         map(actions =>
