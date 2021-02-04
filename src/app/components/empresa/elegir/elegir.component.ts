@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
@@ -10,7 +11,14 @@ import { EmpresaService } from '../empresas.service';
 @Component({
   selector: 'app-elegir',
   templateUrl: './elegir.component.html',
-  styleUrls: ['./elegir.component.scss']
+  styleUrls: ['./elegir.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class ElegirComponent implements OnInit, AfterViewInit {
   empresas$ = this.empresaSvc.empresas;
@@ -18,6 +26,7 @@ export class ElegirComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['nombre_Emp','calle_Emp','actions'];
   dataSource = new MatTableDataSource();
+  expandedElement: Empresa | null;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
