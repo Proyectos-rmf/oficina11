@@ -26,8 +26,7 @@ export class ElegirComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['nombre_Emp','calle_Emp','actions'];
   dataSource = new MatTableDataSource();
-  isExpansionDetailRow = (i: number, row: Object) => row.hasOwnProperty('detailRow');
-  expandedElement: any;
+  expandedElement: Empresa | null;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
