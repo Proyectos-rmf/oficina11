@@ -7,6 +7,7 @@ import {MatTableDataSource} from '@angular/material/table';
 
 import { Empresa } from 'src/app/models/empresa';
 import { EmpresaService } from '../empresas.service';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-elegir',
@@ -32,7 +33,16 @@ export class ElegirComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private empresaSvc: EmpresaService) {}
+  constructor(private empresaSvc: EmpresaService) { }
+
+  connect(): Observable<Empresa[]> {
+    const rows = [];
+    this.dataSource.data.forEach(element => rows.push(element, { detailRow: true, element }));
+    console.log(rows);
+    return of(rows);
+  }
+
+  disconnect() { }
 
   ngOnInit(): void {
     this.empresas$.subscribe(res => { this.ELEMENT_DATA = res });
@@ -44,6 +54,9 @@ export class ElegirComponent implements OnInit, AfterViewInit {
       this.dataSource.data = this.ELEMENT_DATA;
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+
+      this.connect();
+      this.disconnect();
     }, 2000);
   }
 
