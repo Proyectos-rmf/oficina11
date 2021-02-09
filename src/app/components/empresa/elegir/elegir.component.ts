@@ -24,7 +24,7 @@ export class ElegirComponent implements OnInit, AfterViewInit {
   empresas$ = this.empresaSvc.empresas;
   ELEMENT_DATA: Empresa[];
 
-  displayedColumns: string[] = ['nombre_Emp','calle_Emp','actions'];
+  displayedColumns: string[] = ['nombre_Emp'];
   dataSource = new MatTableDataSource();
   expandedElement: Empresa | null;
 
