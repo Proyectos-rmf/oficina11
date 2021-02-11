@@ -1,17 +1,17 @@
 <div class="container-page">
 
   <div fxLayout="row" fxLayoutAlign="center">
-    <mat-form-field style="width: 50%;">
+    <mat-form-field>
       <mat-label>Filtro</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
     </mat-form-field>
   </div>
 
     <table mat-table [dataSource]="dataSource" multiTemplateDataRows
-          class="mat-elevation-z8" matSort fxLayout="row" fxLayoutAlign="center">
+          class="mat-elevation-z8" matSort class="centre">
 
       <ng-container matColumnDef="nombre_Emp">
-        <div fxLayout="row" fxLayoutAlign="center">
+        <div >
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
           <td mat-cell *matCellDef="let element"> {{element.nombre_Emp}} </td>
         </div>
