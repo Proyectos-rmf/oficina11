@@ -1,14 +1,13 @@
 <div class="container-page">
 
-  <div fxLayout="row" fxLayoutAlign="center">
+  <div fxLayout="column" fxLayoutAlign="center center">
     <mat-form-field>
       <mat-label>Filtro</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
     </mat-form-field>
-  </div>
 
     <table mat-table [dataSource]="dataSource" multiTemplateDataRows
-          class="mat-elevation-z8" matSort class="centre">
+          class="mat-elevation-z8" matSort>
 
       <ng-container matColumnDef="nombre_Emp">
         <div >
@@ -40,5 +39,6 @@
       <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
     </table>
 
-    <mat-paginator style="width: 50%;" [pageSizeOptions]="[2, 4, 6]" showFirstLastButtons></mat-paginator>
+    <mat-paginator style="width: 75%;" [pageSizeOptions]="[2, 4, 6]" showFirstLastButtons></mat-paginator>
+  </div>
 </div>

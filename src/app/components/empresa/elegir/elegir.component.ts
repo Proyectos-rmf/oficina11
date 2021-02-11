@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
-import {MatPaginator} from '@angular/material/paginator';
+import {MatPaginator, MatPaginatorIntl} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 
@@ -31,7 +31,13 @@ export class ElegirComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private empresaSvc: EmpresaService) {}
+  constructor(private empresaSvc: EmpresaService,  private pagina: MatPaginatorIntl) {
+    this.pagina.itemsPerPageLabel = "Registros";
+    this.pagina.nextPageLabel = "Siguiente página";
+    this.pagina.previousPageLabel = "Página anterior";
+    this.pagina.firstPageLabel = "Primera página";
+    this.pagina.lastPageLabel = "Última página";
+  }
 
   ngOnInit(): void {
     this.empresas$.subscribe(res => { this.ELEMENT_DATA = res });
