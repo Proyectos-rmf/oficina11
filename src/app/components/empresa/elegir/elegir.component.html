@@ -12,20 +12,24 @@
       <ng-container matColumnDef="nombre_Emp">
         <div >
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-          <td mat-cell *matCellDef="let element"> {{element.nombre_Emp}} </td>
+          <td mat-cell *matCellDef="let element" matTooltip="Presione Click para revisar"> {{element.nombre_Emp}} </td>
         </div>
       </ng-container>
 
       <ng-container matColumnDef="expandedDetail">
         <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
           <div class="example-element-detail"
-              [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                Ciudad: {{element.ciudad_Emp}} <br>
-                Estado: {{element.estado_Emp}} <br>
-                Domicilio: {{element.calle_Emp}} <br>
-                Colonia: {{element.colonia_Emp}} <br>
-                Código Postal: {{element.cp_Emp}} <br>
-                Teléfono: {{element.telefono_Emp}} <br>
+            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+              Ciudad: {{element.ciudad_Emp}} <br>
+              Estado: {{element.estado_Emp}} <br>
+              Domicilio: {{element.calle_Emp}} <br>
+              Colonia: {{element.colonia_Emp}} <br>
+              Código Postal: {{element.cp_Emp}} <br>
+              Teléfono: {{element.telefono_Emp}} <br><br>
+
+              <div fxLayout="row" fxLayoutAlign="space-around end">
+                <button  mat-raised-button color="warn" matTooltip="Elejir EMPRESA">Activar</button>
+              </div>
           </div>
         </td>
       </ng-container>
