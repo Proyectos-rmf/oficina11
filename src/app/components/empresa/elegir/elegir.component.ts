@@ -7,6 +7,7 @@ import {MatTableDataSource} from '@angular/material/table';
 
 import { Empresa } from 'src/app/models/empresa';
 import { EmpresaService } from '../empresas.service';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-elegir',
@@ -23,6 +24,7 @@ import { EmpresaService } from '../empresas.service';
 export class ElegirComponent implements OnInit, AfterViewInit {
   empresas$ = this.empresaSvc.empresas;
   ELEMENT_DATA: Empresa[];
+  form: FormGroup;
 
   displayedColumns: string[] = ['nombre_Emp'];
   dataSource = new MatTableDataSource();

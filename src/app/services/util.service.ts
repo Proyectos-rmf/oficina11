@@ -52,7 +52,6 @@ export class UtilService {
     return dialogRef;
   }
 
-  // tslint:disable-next-line: typedef
   stop(ref: MatDialogRef<DialogComponent>){
     ref.close();
   }

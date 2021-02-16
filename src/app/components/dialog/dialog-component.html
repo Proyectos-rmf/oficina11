@@ -6,7 +6,9 @@
 
 <div *ngIf="!data.carga">
   <h1 *ngIf="!data.icono" mat-dialog-title>{{data.info}}</h1>
-  <div mat-dialog-content>
+
+  <div *ngIf="data.icono" mat-dialog-content>
+
     <div *ngIf="data.icono" style="text-align: center">
       <button mat-fab style="background-color: {{data.color}}">
         <mat-icon>{{data.icono}}</mat-icon>
@@ -14,5 +16,33 @@
       <p> </p>
       <p><b>{{data.info}}</b></p>
     </div>
+
+    <div *ngIf="!data.icono">
+      <mat-form-field>
+        <input matInput
+               placeholder="Introduza Correo Electrónico"
+               formControlName="correo">
+      </mat-form-field>
+
+      <mat-dialog-actions>
+        <button class="mat-raised-button"(click)="close()">Cerrar</button>
+        <button class="mat-raised-button mat-primary"(click)="save()">Guardar</button>
+      </mat-dialog-actions>
+    </div>
+
   </div>
+
+  <!-- <div *ngIf="!data.icono" mat-dialog-content>
+    <mat-form-field>
+      <input matInput
+             placeholder="Introduza Correo Electrónico"
+             formControlName="correo">
+    </mat-form-field>
+
+    <mat-dialog-actions>
+      <button class="mat-raised-button"(click)="close()">Cerrar</button>
+      <button class="mat-raised-button mat-primary"(click)="save()">Guardar</button>
+    </mat-dialog-actions>
+  </div> -->
+
 </div>
