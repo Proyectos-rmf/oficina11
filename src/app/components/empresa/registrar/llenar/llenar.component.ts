@@ -41,7 +41,7 @@ export class LlenarComponent implements OnInit {
     if (navigator.onLine) {
       this.onSaveEmpresas();
     } else {
-      this.UTIL.openDialog('red', 'clear', 'No tienes acceso a INTERNET, espere un momento ...', 3000);
+      this.UTIL.openDialog('red', 'clear', 'No tienes acceso a INTERNET, espere un momento ...', 3000,[]);
      }
   }
 

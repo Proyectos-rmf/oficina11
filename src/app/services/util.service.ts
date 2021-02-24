@@ -56,9 +56,9 @@ export class UtilService {
     ref.close();
   }
 
-  openDialog(Color: string, Icono: string, Info: string, tiempo: number): void {
+  openDialog(Color: string, Icono: string, Info: string, tiempo: number, Campos: any): void {
     const dialogRef = this.dialogo.open(DialogComponent, {
-      data: {color: Color, icono: Icono, info: Info, carga: false},
+      data: {color: Color, icono: Icono, info: Info, carga: false, campo: Campos},
       disableClose: tiempo !== 0 ? true : false
     });
 
@@ -75,7 +75,7 @@ export class UtilService {
       const formValue = this.apuntador.value;
       await this.crudApi.onSaveFormas(formValue, coleccion);
       this.stop(cargando);
-      this.openDialog('green', 'done', mensaje, 2000);
+      this.openDialog('green', 'done', mensaje, 2000, []);
       this.router.navigate([pagina]);
     } catch (error: any) {
       alert(error.code);
