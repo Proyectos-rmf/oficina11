@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {FormGroup} from '@angular/forms';
 
 import {MatPaginator, MatPaginatorIntl} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
@@ -25,8 +24,6 @@ import {UtilService} from 'src/app/services/util.service';
 export class ElegirComponent implements OnInit, AfterViewInit {
   empresas$ = this.empresaSvc.empresas;
   ELEMENT_DATA: Empresa[];
-  form: FormGroup;
-  camposEmpresa: string[] = ['Introduza Correo Electrónico','','Contraseña',''];
 
   displayedColumns: string[] = ['nombre_Emp'];
   dataSource = new MatTableDataSource();
@@ -62,7 +59,6 @@ export class ElegirComponent implements OnInit, AfterViewInit {
   }
 
   onActivado() {
-    this.UTIL.openDialog('', '', 'Activar', 0, this.camposEmpresa);
-    console.log(this.camposEmpresa);
+    this.UTIL.openDialog('', '', '', 1, 'Activar');
   }
 }

@@ -47,7 +47,7 @@ export class UtilService {
   start(): MatDialogRef<DialogComponent> {
     const dialogRef = this.dialogo.open(DialogComponent, {
         data: {info: 'Espere...', carga: true},
-        disableClose: false
+        disableClose: true
     });
     return dialogRef;
   }
@@ -56,13 +56,20 @@ export class UtilService {
     ref.close();
   }
 
-  openDialog(Color: string, Icono: string, Info: string, tiempo: number, Campos: any): void {
-    const dialogRef = this.dialogo.open(DialogComponent, {
-      data: {color: Color, icono: Icono, info: Info, carga: false, campo: Campos},
-      disableClose: tiempo !== 0 ? true : false
-    });
+  openDialog(Color: string, Icono: string, Info: string, tiempo: number, forma: string): void {
+    if (forma.length == 0) {
+      const dialogRef = this.dialogo.open(DialogComponent, {
+        data: {color: Color, icono: Icono, info: Info, carga: false},
+        disableClose: tiempo !== 0 ? true : false
+      });
 
-    if (tiempo !== 0) { setTimeout(() => { dialogRef.close(); }, tiempo); }
+      setTimeout(() => { dialogRef.close(); }, tiempo);
+    } else {
+        const dialogRef = this.dialogo.open(DialogComponent, {
+          data: {carga: false},
+          disableClose: true
+        });
+    }
   }
 
 
@@ -75,7 +82,7 @@ export class UtilService {
       const formValue = this.apuntador.value;
       await this.crudApi.onSaveFormas(formValue, coleccion);
       this.stop(cargando);
-      this.openDialog('green', 'done', mensaje, 2000, []);
+      this.openDialog('green', 'done', mensaje, 2000, '');
       this.router.navigate([pagina]);
     } catch (error: any) {
       alert(error.code);

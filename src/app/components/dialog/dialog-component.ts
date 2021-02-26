@@ -16,4 +16,8 @@ export class DialogComponent {
     this.dialogRef.close();
   }
 
+  save() {
+    
+  }
+
 }
