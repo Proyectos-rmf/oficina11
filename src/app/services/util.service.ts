@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { BehaviorSubject } from 'rxjs';
-import { DialogComponent } from '../components/dialog/dialog-component';
 import { EmpresaService } from 'src/app/components/empresa/empresas.service';
-import { Router } from '@angular/router';
+import { DialogComponent } from '../components/dialog/dialog-component';
+import { AddCustomerComponent } from '../components/formas/add-customer/add-customer.component';
 
 @Injectable({
   providedIn: 'root'
@@ -65,7 +66,7 @@ export class UtilService {
 
       setTimeout(() => { dialogRef.close(); }, tiempo);
     } else {
-        const dialogRef = this.dialogo.open(DialogComponent, {
+        const dialogRef = this.dialogo.open(AddCustomerComponent, {
           data: {carga: false},
           disableClose: true
         });
