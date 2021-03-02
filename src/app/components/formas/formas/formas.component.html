@@ -1,26 +1,23 @@
+<div style="text-align: center">
+  <h2>Acceso</h2>
 <div>
-  <div class="add-title">
-    <h2 class="primary">Add customer</h2>
-  </div>
-  <div>
 
-    <!-- [formGroup]="addCusForm" (change)="formChanged()" -->
-    <form [formGroup]="addCusForm">
-      <!-- <mat-grid-list cols="2" [cols]="breakpoint" rowHeight="85px" (window:resize)="onResize($event)">
+    <form [formGroup]="Formas" (change)="formChanged()">
+      <mat-grid-list cols="2" [cols]="breakpoint" rowHeight="85px" (window:resize)="onResize($event)">
         <mat-grid-tile>
           <div class="text-inside">
-            <mat-form-field>
-              <input matInput placeholder="First Name" value={{fname}} formControlName="firstname" required>
-              <mat-error *ngIf="addCusForm.controls.firstname.hasError('required')">
-                Please enter first name
+            <!-- <mat-form-field>
+              <input matInput placeholder="Correo electrónico" formControlName="correo" required>
+              <mat-error *ngIf="addCusForm.controls.correo.hasError('required')">
+                Ingrese un Correo electrónico
               </mat-error>
-              <mat-error *ngIf="addCusForm.controls.firstname.hasError('pattern')">
-                Please enter valid first name
+              <mat-error *ngIf="addCusForm.controls.correo.hasError('correo')">
+                Ingrese un correo válido
               </mat-error>
-            </mat-form-field>
+            </mat-form-field> -->
           </div>
         </mat-grid-tile>
-        <mat-grid-tile>
+        <!-- <mat-grid-tile>
           <div class="text-inside">
             <mat-form-field class="example-full-width">
               <input matInput placeholder="Last Name" value={{lname}} formControlName="lastname" required>
@@ -72,13 +69,13 @@
               <mat-radio-button  color="primary" style="padding:4px 0px 0px 24px;" value="2">Female</mat-radio-button>
             </mat-radio-group>
           </div>
-        </mat-grid-tile>
+        </mat-grid-tile> -->
       </mat-grid-list>
 
       <div class="btn-sec">
-        <button mat-raised-button type="submit" color="primary" class="Update-btn" (click)="onAddCus()">Save</button>
-        <button mat-raised-button type="button" class="Discard-btn">Cancel</button>
-      </div> -->
+        <button mat-raised-button type="submit" color="primary" class="Update-btn" (click)="onAddFormas()">Save</button>
+        <button mat-raised-button type="button" class="Discard-btn" mat-dialog-close>Cancel</button>
+      </div>
 
     </form>
   </div>

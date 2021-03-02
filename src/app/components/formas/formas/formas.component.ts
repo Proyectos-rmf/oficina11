@@ -6,39 +6,38 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 // import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-add-customer',
-  templateUrl: './add-customer.component.html',
-  styleUrls: ['./add-customer.component.css']
+  selector: 'app-formas',
+  templateUrl: './formas.component.html',
+  styleUrls: ['./formas.component.css']
 })
-export class AddCustomerComponent implements OnInit {
+export class FormasComponent implements OnInit {
   breakpoint: number; // Breakpoint observer code
-  fname: string = `Ramesh`;
-  lname: string = `Suresh`;
-  addCusForm: FormGroup;
+  
+  correo: string;
+  contrasena: string;
+
+  Formas: FormGroup;
   wasFormChanged = false;
 
-  constructor(
-    private fb: FormBuilder,
-    // public dialog: MatDialog
-  ) { }
+  constructor( private fb: FormBuilder ) { }
 
   public ngOnInit(): void {
-    this.addCusForm = this.fb.group({
-      IdProof: null,
-      firstname: [this.fname, [Validators.required, Validators.pattern('[a-zA-Z]+([a-zA-Z ]+)*')]],
-      lastname: [this.lname, [Validators.required, Validators.pattern('[a-zA-Z]+([a-zA-Z ]+)*')]],
-      email: [null, [Validators.required, Validators.email]],
+    this.Formas = this.fb.group({
+      correo: [this.correo, [Validators.required, Validators.pattern('[a-zA-Z]+([a-zA-Z ]+)*')]],
+      email: [this.contrasena, [Validators.required, Validators.email]],
     });
     this.breakpoint = window.innerWidth <= 600 ? 1 : 2; // Breakpoint observer code
   }
 
-  public onAddCus(): void {
-    this.markAsDirty(this.addCusForm);
+  public onAddFormas(): void {
+    console.log(this.Formas);
+    
+    this.markAsDirty(this.Formas);
   }
 
   // openDialog(): void {
   //   console.log(this.wasFormChanged);
-  //   if(this.addCusForm.dirty) {
+  //   if(this.Formas.dirty) {
   //     const dialogRef = this.dialog.open(DeleteComponent, {
   //       width: '340px',
   //     });

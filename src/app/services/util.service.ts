@@ -4,7 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { BehaviorSubject } from 'rxjs';
 import { EmpresaService } from 'src/app/components/empresa/empresas.service';
 import { DialogComponent } from '../components/dialog/dialog-component';
-import { AddCustomerComponent } from '../components/formas/add-customer/add-customer.component';
+import { FormasComponent } from '../components/formas/formas/formas.component';
 
 @Injectable({
   providedIn: 'root'
@@ -66,7 +66,7 @@ export class UtilService {
 
       setTimeout(() => { dialogRef.close(); }, tiempo);
     } else {
-        const dialogRef = this.dialogo.open(AddCustomerComponent, {
+        const dialogRef = this.dialogo.open(FormasComponent, {
           data: {carga: false},
           disableClose: true
         });

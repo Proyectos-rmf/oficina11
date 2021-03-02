@@ -31,7 +31,7 @@ export class EmpresaComponent implements OnInit {
         this.UTIL.Variables(this.empresaSvc.Empresamodal);
       }
       this.UTIL.stop(espera);
-    }, 3500);
+    }, 3000);
   }
 
 }

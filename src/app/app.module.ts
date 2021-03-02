@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app/app-routing.module';
@@ -9,7 +9,8 @@ import { environment } from 'src/environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './app/material-module';
 
-import {DialogComponent} from '../app/components/dialog/dialog-component';
+import { DialogComponent } from './components/dialog/dialog-component';
+import { FormasComponent } from './components/formas/formas/formas.component';
 
 /* Importar FireBase */
 import { AngularFireModule } from '@angular/fire';
@@ -22,7 +23,8 @@ import { EmpresaModule } from './components/empresa/empresa.module';
   declarations: [
     AppComponent,
     NavComponent,
-    DialogComponent
+    DialogComponent,
+    FormasComponent
   ],
   imports: [
     BrowserModule,
