@@ -57,8 +57,8 @@ export class UtilService {
     ref.close();
   }
 
-  openDialog(Color: string, Icono: string, Info: string, tiempo: number, forma: string): void {
-    if (forma.length == 0) {
+  openDialog(Color: string, Icono: string, Info: string, tiempo: number, Forma: string): void {
+    if (Forma.length == 0) {
       const dialogRef = this.dialogo.open(DialogComponent, {
         data: {color: Color, icono: Icono, info: Info, carga: false},
         disableClose: tiempo !== 0 ? true : false
@@ -67,7 +67,7 @@ export class UtilService {
       setTimeout(() => { dialogRef.close(); }, tiempo);
     } else {
         const dialogRef = this.dialogo.open(FormasComponent, {
-          data: {carga: false},
+          data: {carga: false, forma: Forma},
           disableClose: true
         });
     }

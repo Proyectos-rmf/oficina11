@@ -1,4 +1,4 @@
-import { Component, OnInit, VERSION, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 // import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 // import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -11,8 +11,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  @Input() atributo: any;
   breakpoint: number; // Breakpoint observer code
-  
+
   correo: string;
   contrasena: string;
 
@@ -22,6 +23,8 @@ export class LoginComponent implements OnInit {
   constructor( private fb: FormBuilder ) { }
 
   public ngOnInit(): void {
+    console.log(this.atributo);
+
     this.Formas = this.fb.group({
       correo: [this.correo, [Validators.required, Validators.pattern('[a-zA-Z]+([a-zA-Z ]+)*')]],
       email: [this.contrasena, [Validators.required, Validators.email]],
@@ -31,7 +34,7 @@ export class LoginComponent implements OnInit {
 
   public onAddFormas(): void {
     console.log(this.Formas);
-    
+
     this.markAsDirty(this.Formas);
   }
 

@@ -22,7 +22,7 @@ export class EmpresaComponent implements OnInit {
 
   getEmpresa(): void {
     const espera = this.UTIL.start();
-    setTimeout(() => { 
+    setTimeout(() => {
       if (typeof(this.empresaSvc.Empresamodal[0]?.id)==='undefined') {
         this.indice = 0;
         this.noactivo = true;
@@ -31,7 +31,7 @@ export class EmpresaComponent implements OnInit {
         this.UTIL.Variables(this.empresaSvc.Empresamodal);
       }
       this.UTIL.stop(espera);
-    }, 3000);
+    }, 2500);
   }
 
 }
