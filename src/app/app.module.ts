@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './app/material-module';
 
 import { DialogComponent } from './components/dialog/dialog-component';
+import { LoginComponent } from './components/formas/login/login.component';
 import { FormasComponent } from './components/formas/formas/formas.component';
 
 /* Importar FireBase */
@@ -24,6 +25,7 @@ import { EmpresaModule } from './components/empresa/empresa.module';
     AppComponent,
     NavComponent,
     DialogComponent,
+    LoginComponent,
     FormasComponent
   ],
   imports: [
